@@ -148,7 +148,7 @@
 {:else}
   <section class="flex justify-center">
     <div class="w-full sm:w-5/6 md:w-3/4 lg:w-2/3 xl:w-4/5 p-6 rounded-lg mt-6">
-      <form id="myForm" on:submit|preventDefault={handleOnSave}>
+      <form id="edit-employee-form" on:submit|preventDefault={handleOnSave}>
         <div class="flex flex-col sm:flex-row gap-10">
           <div class="w-full sm:w-1/2">
             <CustomInput

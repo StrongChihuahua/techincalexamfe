@@ -4,11 +4,8 @@
 
   import { deleteEmployee } from '../services/employee'
 
-  let items = []
-  let _role = ''
-  // export
-  table_data.subscribe((val) => (items = val))
-  role.subscribe((val) => (_role = val))
+  export let items = []
+  export let _role = ''
 
   let currentPage = 1
   let itemsPerPage = 5
@@ -78,6 +75,8 @@
           {#each displayedData as emp, index}
             <tr
               key={index}
+              data-index={emp.id}
+              data-testid={`data-row-${index}`}
               class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600"
             >
               <td class="whitespace-nowrap px-6 py-4 font-medium">{emp.name}</td
@@ -97,15 +96,18 @@
               <td>
                 {#if _role === 'ROLE_ADMIN'}
                   <button
+                    data-testid={'admin-edit-btn'}
                     class="view-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded m-2"
                     on:click={() => handleOnClickEdit(emp.id)}>Edit</button
                   >
                   <button
+                    data-testid={'admin-delete-btn'}
                     class="delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded"
                     on:click={() => handleOnClickDelete(emp.id)}>Delete</button
                   >
                 {:else if _role === 'ROLE_USER'}
                   <button
+                    data-testid={'user-view-btn'}
                     class="view-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded m-2"
                     on:click={() => handleOnClickEdit(emp.id)}>View</button
                   >
@@ -119,12 +121,17 @@
         class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3"
       >
         <div class="sm:flex sm:flex-1 sm:items-center sm:justify-between">
-          <div />
+          <div>
+            <p data-testid={'total-items'}>
+              Total Items: <b>{items.length}</b>
+            </p>
+          </div>
           <div>
             <nav aria-label="Page navigation example">
               <ul class="inline-flex -space-x-px text-base h-10">
                 <li>
                   <button
+                    data-testid={'table-first-page'}
                     on:click={goToFirstPage}
                     disabled={currentPage === 1}
                     class={`${
@@ -135,6 +142,7 @@
                 </li>
                 <li>
                   <button
+                    data-testid={'table-prev-page'}
                     on:click={prevPage}
                     disabled={currentPage === 1}
                     class={`${
@@ -146,6 +154,7 @@
 
                 <li>
                   <button
+                    data-testid={'table-next-page'}
                     on:click={nextPage}
                     disabled={currentPage === totalPages}
                     class={`${
@@ -156,6 +165,7 @@
                 </li>
                 <li>
                   <button
+                    data-testid={'table-last-page'}
                     on:click={goToLastPage}
                     disabled={currentPage === totalPages}
                     class={`${

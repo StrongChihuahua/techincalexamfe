@@ -9,10 +9,11 @@
 
 <div>
   <label class="block text-sm font-medium text-gray-700 mb-3">
-    <span>{label}</span>
+    <span data-testid={'input-label'}>{label}</span>
     <select
       id={name}
       {name}
+      data-testid={name}
       class="mt-1 p-2 w-full border rounded"
       required
       bind:value
